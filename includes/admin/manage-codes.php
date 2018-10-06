@@ -19,12 +19,14 @@ function dc_manage_codes() {
 	$wpdb->query('SET OPTION SQL_BIG_SELECTS = 1');
 
 	// GET parameters
-	$get_release 	= $_GET['release'];
-	$get_group	= $_GET['group'];
-	$get_action 	= $_GET['action'];
+	// #change Set GET variables without a value
+	$get_release = isset($_GET['release']) ? $_GET['release'] : '';
+	$get_group 	 = isset($_GET['group']) ? $_GET['group'] : '';
+	$get_action 	 = isset($_GET['action']) ? $_GET['action'] : '';
 
 	// POST parameters
-	$post_release	= $_POST['release'];
+	// #change Set POST variables without a value
+	$post_release 	= isset($_POST['release']) ? $_POST['release'] : '';
 	
 	// List of releases
 	$releases = dc_get_releases();
@@ -162,6 +164,11 @@ function dc_manage_codes() {
 				dc_list_downloads( $release_id, $code_group->group, FALSE, 'admin.php?page=dc-manage-codes&amp;action=reset' );
 			}
 			
+			// #change These were never set, seems a bug
+			$post_prefix = '';
+			$post_codes = '';
+			$post_characters = '';
+			
 			// Show form to add codes
 			echo '<form id="form-manage-codes" action="admin.php?page=dc-manage-codes&amp;action=generate" method="post">';
 			echo '<input type="hidden" name="release" value="' . $release->ID . '" />';
@@ -196,6 +203,10 @@ function dc_manage_codes() {
 
 			echo '</form>';
 			
+			// #change Set POST variables without a value
+			$import_prefix = isset($_POST['import-prefix']) ? $_POST['import-prefix'] : '';
+			$import_codes = isset($_POST['import-codes']) ? $_POST['import-codes'] : '';
+			
 			// Show form to import existing codes
 			echo '<form action="admin.php?page=dc-manage-codes&amp;action=import" method="post">';
 			echo '<input type="hidden" name="release" value="' . $release->ID . '" />';
@@ -206,13 +217,13 @@ function dc_manage_codes() {
 			
 			echo '<tr valign="top">';
 			echo '<th scope="row"><label for="import-prefix">Code Prefix</label></th>';
-			echo '<td><input type="text" name="import-prefix" id="import-prefix" class="small-text" value="' . $_POST['import-prefix'] . '" />';
+			echo '<td><input type="text" name="import-prefix" id="import-prefix" class="small-text" value="' . $import_prefix . '" />';
 			echo ' <span class="description">First characters of each code. It is recommended that all of your codes to be imported have a common prefix. If this is not the case, this field can be left empty.</span></td>';
 			echo '</tr>';
 
 			echo '<tr valign="top">';
 			echo '<th scope="row"><label for="import-codes">List of Codes</label></th>';
-			echo '<td><textarea name="import-codes" id="import-codes" cols="20" rows="20" class="small-text">' . $_POST['import-codes'] .'</textarea>';
+			echo '<td><textarea name="import-codes" id="import-codes" cols="20" rows="20" class="small-text">' . $import_codes .'</textarea>';
 			echo ' <span class="description">Plain list of codes to be imported (separated by linebreaks)</span></td>';
 			echo '</tr>';
 

@@ -18,12 +18,16 @@ function dc_manage_releases() {
 	$wpdb->query('SET OPTION SQL_BIG_SELECTS = 1');
 
 	// Get parameters
-	$get_action 	= $_GET['action'];
-	$get_release 	= $_GET['release'];
+	// #change Set GET variables without a value
+	$get_action 		= isset($_GET['action']) ? $_GET['action'] : '';
+	$get_release 	= isset($_GET['release']) ? $_GET['release'] : '';
 
 	// Post parameters
-	$post_action = $_POST['action'];
-	$post_release = $_POST['release'];
+	// #change Set POST variables without a value
+	$post_action 	= isset($_POST['action']) ? $_POST['action'] : '';
+	$post_release 	= isset($_POST['release']) ? $_POST['release'] : '';
+	
+	$add_success = false;
 	
 	// Show page title
 	echo '<div class="wrap">';
