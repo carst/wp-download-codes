@@ -103,7 +103,7 @@ function dc_embed_download_code_form( $atts ) {
 		// Display form
 		$html .= '<form action="' . ( '' == $anchor ? '' : '#' . $anchor ) . '" name="dc_form" method="post">';
 		$html .= '<p><input type="hidden" name="submitted_release_' . $shortcode_id . '" value="' . $shortcode_id . '" />'; 
-		$html .= dc_msg( 'code_enter' ) .' <input type="text" name="code_' . $shortcode_id . '" value="' . ( $post_code != "" ? $post_code : ( $get_code != "" ? $get_code : "" ) ) . '" size="20" /> ';
+		$html .= '<span class="enter-message">'.dc_msg( 'code_enter' ) .'</span> <input type="text" name="code_' . $shortcode_id . '" value="' . ( $post_code != "" ? $post_code : ( $get_code != "" ? $get_code : "" ) ) . '" size="20" /> ';
 		$html .= '<input type="submit" name="submit_' . $shortcode_id . '" value="' . __( 'Submit') . '" /></p>';
 		$html .= '</form>';
 	}
