@@ -48,7 +48,7 @@ function dc_embed_download_code_form( $atts ) {
 			)
 		);
 		
-		if ( $code->ID ) {
+		if ( is_object($code) && $code->ID ) {
 			// Get release details
 			$release = $wpdb->get_row( "SELECT * FROM " . dc_tbl_releases() . " WHERE ID = " . $code->release );
 			

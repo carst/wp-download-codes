@@ -97,8 +97,10 @@ function get_mime_content_type( $file )
 			,"htm"=>"text/html"
 			,"html"=>"text/html"
 	);
-
-	$extension = strtolower(end(explode('.',$file)));
+	
+	# PHP 7 compatible
+	$tmp	 = explode('.',$file);
+	$extension = strtolower(end($tmp));
 	
 	return $mime_types[$extension];
 }

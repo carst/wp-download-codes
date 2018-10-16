@@ -96,7 +96,8 @@ function dc_send_download_headers() {
 			header( 'Expires: 0' );
 			
 			// Stream file
-			ob_clean();
+			if (ob_get_length()) ob_clean();
+			if (ob_get_level()) ob_end_clean();
 			flush();
 			$handle = fopen( dc_file_location() . $release->filename, 'rb' );
 			$chunksize = 1 * ( 1024 * 1024 ); 
